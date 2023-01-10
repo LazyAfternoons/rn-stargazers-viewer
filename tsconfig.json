@@ -6,5 +6,14 @@
 
     /* Completeness */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "typedocOptions": {
+    "entryPoints": [
+        "App.tsx"
+    ],
+    "exclude": ["**/node_modules/**", "**/docs/**", "**/__tests__/**", "babel.config.js", "metro.config.js", "index.js"],
+    "entryPointStrategy": "expand",
+    "out": "docs",
+    "name": "Stargazers Viewer Docs",
   }
 }
