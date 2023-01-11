@@ -14,7 +14,10 @@ const sagaMiddleware = createSagaMiddleware();
  */
 const store = configureStore({
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(sagaMiddleware),
+    getDefaultMiddleware({
+      immutableCheck: {warnAfter: 128},
+      serializableCheck: {warnAfter: 128},
+    }).concat(sagaMiddleware),
   reducer: rootReducer,
 });
 
