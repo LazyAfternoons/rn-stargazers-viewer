@@ -1,4 +1,4 @@
-import {put, takeLatest, all} from '@redux-saga/core/effects';
+import {put, takeLatest, all, call} from '@redux-saga/core/effects';
 import {select} from 'redux-saga/effects';
 import {getStargazers} from '../api/github';
 import {RootState} from '../types/reducers';
@@ -19,7 +19,8 @@ function* fetchStargazers() {
       state.owner &&
       state.page &&
       state.perPage &&
-      !state.isOver
+      !state.isOver &&
+      !state.error
     ) {
       //Evalutes and yield back to the caller the result of the api call
       const res: User[] | Starred[] = yield getStargazers({
@@ -53,6 +54,13 @@ function* fetchStargazers() {
 }
 
 /**
+ * After the action is dispatched to the reducer and the state is inizialied, fetch stargazers.
+ */
+function* initStargazers() {
+  yield call(fetchStargazers);
+}
+
+/**
  * Executes fetchStargazers on each dispatched MAKE_REQUEST action.
  * Always gets the response of the latest request which was fired.
  */
@@ -61,8 +69,16 @@ function* fetchStargazersSaga() {
 }
 
 /**
+ * Executes initStargazers on each dispatched 'INIT' action.
+ * Always gets the response of the latest request which was fired.
+ */
+function* initStargazersSaga() {
+  yield takeLatest('INIT', initStargazers);
+}
+
+/**
  * Exports only the rootSaga as entry point to start all Sagas, only one of them in this case though.
  */
 export default function* rootSaga() {
-  yield all([fetchStargazersSaga()]);
+  yield all([fetchStargazersSaga(), initStargazersSaga()]);
 }
