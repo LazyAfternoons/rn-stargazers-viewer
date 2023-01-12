@@ -82,6 +82,14 @@ const StargazersReducer = (
         nextPageLoading: false,
       };
 
+    case 'EMPTY':
+      return {
+        ...state,
+        list: [],
+        loading: false,
+        nextPageLoading: false,
+      };
+
     default:
       return state;
   }

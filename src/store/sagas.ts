@@ -5,8 +5,11 @@ import {RootState} from '../types/reducers';
 
 /**
  * Worker saga which will be fired on MAKE_REQUEST action.
- * Fetches the list of stargazers based on state and instructs the middleware to dispatch the 'SUCCESS' action if the API call succeded,
- * 'OVER' if the API call returned empty or 'FAIL' in case of error.
+ * Fetches the list of stargazers based on state and instructs the middleware to dispatch the resulting state:
+ * SUCCESS action if the API call succeded;
+ * EMPTY if the API returns an empty list while querying for the first page;
+ * OVER if the API returns an empty list while querying a page but the first one;
+ * FAIL in case of error.
  */
 function* fetchStargazers() {
   try {
@@ -38,8 +41,12 @@ function* fetchStargazers() {
             page: state.page + 1,
           },
         });
-      } else {
+      } else if (state.page > 1) {
+        //empty while querying the first page
         yield put({type: 'OVER'});
+      } else {
+        //empty while query any page but the first one
+        yield put({type: 'EMPTY'});
       }
     }
   } catch (err: any) {

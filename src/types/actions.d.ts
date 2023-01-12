@@ -11,22 +11,28 @@ type StateStargazers = {
   list: any[] | null;
 };
 
-type TypeStargazers = 'INIT' | 'MAKE_REQUEST' | 'SUCCESS' | 'FAIL' | 'OVER';
+type StargazersAction =
+  | 'INIT'
+  | 'MAKE_REQUEST'
+  | 'SUCCESS'
+  | 'FAIL'
+  | 'OVER'
+  | 'EMPTY';
 
 type InitStargazers = {
-  type: ActionsType;
+  type: StargazersAction;
   payload: initParamsType;
 };
 
 type InitStargazersParams = getStargazersPayload;
 
 type MakeRequestStargazers = {
-  type: ActionsType;
+  type: StargazersAction;
   payload?: {};
 };
 
 type SuccessStargazers = {
-  type: ActionsType;
+  type: StargazersAction;
   payload: {
     list: Pick<State, 'list'>;
     page: Pick<State, 'page'>;
@@ -41,7 +47,17 @@ type FailureStargazers = {
 };
 
 type OverStargazers = {
-  type: ActionsType;
+  type: StargazersAction;
+  payload?: {};
+};
+
+type OverStargazers = {
+  type: StargazersAction;
+  payload?: {};
+};
+
+type EmptyStargazers = {
+  type: StargazersAction;
   payload?: {};
 };
 
