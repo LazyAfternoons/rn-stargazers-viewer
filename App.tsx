@@ -1,28 +1,23 @@
+// src/App.tsx
+import './src/localization/i18n';
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  useColorScheme,
-} from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Provider} from 'react-redux';
+import Home from './src/screens/Home';
+import {store} from './src/store';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {ThemeProvider} from '@rneui/themed';
+import {customTheme} from './src/themes/theme';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView />
-    </SafeAreaView>
+    <Provider store={store}>
+      <ThemeProvider theme={customTheme}>
+        <SafeAreaProvider>
+          <Home />
+        </SafeAreaProvider>
+      </ThemeProvider>
+    </Provider>
   );
 };
+
 export default App;
