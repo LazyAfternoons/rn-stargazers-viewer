@@ -13,6 +13,8 @@ type ListUserItemProps = {
 
 /**
  * Component for rendering an item in a list of stargazers.
+ * The function is wrapped into React.memo in an effort to optmize FlatList performances.
+ * Given that we are only appending new elements to the list, we do not need to rerender previous items.
  */
 const ListUserItem = memo(({user}: ListUserItemProps) => {
   return (
