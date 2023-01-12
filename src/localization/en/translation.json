@@ -1,6 +1,10 @@
 {
   "home": {
     "title": "Stargazers Viewer",
-    "description": "A description"
+    "description": "Lists the people that have starred a repostory by typing its owner and its name"
+  }, 
+  "list": {
+    "empty": "Empty list!",
+    "over": "End of the list!"
   }
 }
