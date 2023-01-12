@@ -6,5 +6,11 @@
   "list": {
     "empty": "Empty list!",
     "over": "End of the list!"
+  }, 
+  "form": {
+    "required": "This field is required",
+    "invalid_username": "Invalid username",
+    "repo_maxlength": "The max length is 250",
+    "submit": "Submit"
   }
 }
