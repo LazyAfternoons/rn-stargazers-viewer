@@ -33,7 +33,7 @@ const initialState: StateStargazers = {
 const StargazersReducer = (
   state: StateStargazers = initialState,
   action: ActionsStargazers,
-) => {
+): StateStargazers => {
   switch (action.type) {
     case 'INIT':
       return {
@@ -47,13 +47,11 @@ const StargazersReducer = (
         isOver: false,
         error: null,
         nextPageLoading: false,
-        loading: false,
+        loading: true,
       };
 
     case 'MAKE_REQUEST':
-      const loadingState =
-        state.page === 1 ? {nextPageLoading: true} : {loading: true};
-      return {...state, ...loadingState};
+      return {...state, nextPageLoading: true};
 
     case 'SUCCESS':
       return {
