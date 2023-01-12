@@ -17,6 +17,7 @@ import ListFooterView from '../components/ListFooterView';
 import ListEmptyView from '../components/ListEmptyView';
 import ListHeaderText from '../components/ListHeaderText';
 import ListUserItem, {keyExtractor} from '../components/ListUserItem';
+import {useTranslation} from 'react-i18next';
 
 /**
  * User per page costant for Github Stargazers endpoint. Defaults to 30 per API.
@@ -46,6 +47,8 @@ type HomeProps = {
  * Home component which includes a brief description, a form to input relevant data to query Github Stargazers API and a list which contains the result of the call.
  */
 const Home = ({stargazers, dispatch}: HomeProps) => {
+  const {t} = useTranslation();
+
   /**
    * Function which renders an item of the Stargazers list.
    */
@@ -83,9 +86,13 @@ const Home = ({stargazers, dispatch}: HomeProps) => {
    */
   useEffect(() => {
     if (stargazers.error != null) {
-      Alert.alert('Error', stargazers.error);
+      console.log(stargazers.error);
+      Alert.alert(
+        t('generic.error'),
+        t(`api_error.${stargazers.error.code}`) || '',
+      );
     }
-  }, [stargazers.error]);
+  }, [stargazers.error, t]);
 
   return (
     <SafeAreaView

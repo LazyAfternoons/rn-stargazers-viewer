@@ -3,7 +3,7 @@ type StateStargazers = {
   repo: string | null;
   loading: boolean;
   nextPageLoading: boolean;
-  error: any;
+  error: {code: string; message: string} | null;
   isOver: boolean;
   page: number;
   perPage: number;

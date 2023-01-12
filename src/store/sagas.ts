@@ -13,7 +13,6 @@ import {RootState} from '../types/reducers';
  */
 function* fetchStargazers() {
   try {
-    //Tells the middleware to invoke the provider of the current state
     const state: StateStargazers = yield select(
       (inState: RootState) => inState.stargazers,
     );
@@ -25,7 +24,6 @@ function* fetchStargazers() {
       !state.isOver &&
       !state.error
     ) {
-      //Evalutes and yield back to the caller the result of the api call
       const res: User[] | Starred[] = yield getStargazers({
         repo: state.repo,
         owner: state.owner,
@@ -33,7 +31,6 @@ function* fetchStargazers() {
         perPage: state.perPage,
       });
       if (res.length > 0) {
-        //Tells the middleware to dispatch the SUCCESS action to the store
         yield put({
           type: 'SUCCESS',
           payload: {
@@ -51,10 +48,13 @@ function* fetchStargazers() {
     }
   } catch (err: any) {
     yield put({
-      //Tells the middleware to dispatch the FAIL action to the store
       type: 'FAIL',
       payload: {
-        error: err.message,
+        error: {
+          //If response exsits then the server answered, axios error otherwise (might be network related)
+          code: err.response ? err.response.status : err.code,
+          message: err.response ? err.response.data.message : err.message,
+        },
       },
     });
   }

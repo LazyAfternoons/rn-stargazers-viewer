@@ -1,4 +1,7 @@
 {
+  "generic": {
+    "error": "An error occurred"
+  },
   "home": {
     "title": "Stargazers Viewer",
     "description": "Lists the people that have starred a repostory by typing its owner and its name"
@@ -12,5 +15,10 @@
     "invalid_username": "Invalid username",
     "repo_maxlength": "The max length is 250",
     "submit": "Submit"
+  }, 
+  "api_error": {
+    "ERR_NETWORK": "Network Error",
+    "404": "Repository not found, check owner and name",
+    "403": "Validation failed or the endpoint has been spammed"
   }
 }
