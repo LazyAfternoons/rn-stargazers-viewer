@@ -7,11 +7,13 @@ import {store} from './src/store';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {ThemeProvider} from '@rneui/themed';
 import {customTheme} from './src/themes/theme';
+import {StatusBar} from 'react-native';
 
 const App = () => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={customTheme}>
+        <StatusBar animated={true} barStyle={'dark-content'} />
         <SafeAreaProvider>
           <Home />
         </SafeAreaProvider>
