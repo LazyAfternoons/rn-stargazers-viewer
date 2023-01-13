@@ -2,9 +2,9 @@ import {Avatar, ListItem} from '@rneui/themed';
 import React, {memo} from 'react';
 
 /**
- * Props for the {@link ListUserItemProps} component.
+ * Props for the `ListUserItem` component.
  */
-type ListUserItemProps = {
+export type ListUserItemProps = {
   /**
    * User information.
    */

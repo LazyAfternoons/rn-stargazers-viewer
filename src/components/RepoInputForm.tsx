@@ -23,7 +23,7 @@ export type RepoFormData = {
 };
 
 /**
- * Props for the {@link RepoInputForm}
+ * Props for the `RepoInputForm` component.
  */
 export type RepoFormProps = {
   /**

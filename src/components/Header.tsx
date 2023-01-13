@@ -4,9 +4,12 @@ import {StyleProp, Text, View, ViewStyle} from 'react-native';
 import {useTextStyles} from '../themes/theme';
 
 /**
- * Props of {@link Header}.
+ * Props of `Header`.
  */
-type HeaderProps = {
+export type HeaderProps = {
+  /**
+   * Optional container style for the outer view.
+   */
   containerStyle?: StyleProp<ViewStyle>;
 };
 

@@ -4,9 +4,9 @@ import {ActivityIndicator, Text, View} from 'react-native';
 import {useTextStyles} from '../themes/theme';
 
 /**
- * Props for the {@link ListFooterView} component.
+ * Props for the `ListFooterView` component.
  */
-type ListFooterViewProps = {
+export type ListFooterViewProps = {
   /**
    * True if the list is over, false otherwise.
    */
