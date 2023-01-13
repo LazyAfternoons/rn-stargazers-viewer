@@ -12,6 +12,27 @@ export const customTheme = createTheme({
         fontWeight: 'bold',
       },
     },
+    CheckBox: {
+      style: {
+        marginBottom: 15,
+      },
+      containerStyle: {
+        margin: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        padding: 0,
+        marginBottom: 15,
+      },
+      textStyle: {
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 16,
+        justifyContent: 'flex-end',
+      },
+      iconType: 'material-community',
+      checkedIcon: 'checkbox-marked',
+      uncheckedIcon: 'checkbox-blank-outline',
+    },
   },
 });
 

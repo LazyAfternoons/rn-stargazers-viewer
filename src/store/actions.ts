@@ -4,7 +4,7 @@
  * @param repo - The repository name.
  * @param perPage - The number of users returned per page.
  * @param page - The number of the requested page, starts from 1.
- * @param withTimeStamp - True if the starred_at timestamp has to be included, false otherwise. If true returns a Starred array.
+ * @param withTimestamp - True if the starred_at timestamp has to be included, false otherwise. If true returns a Starred array.
  */
 export const initStargazers = (
   params: InitStargazersParams,
@@ -15,7 +15,7 @@ export const initStargazers = (
     repo: params.repo,
     perPage: params.perPage,
     page: params.page,
-    withTimeStamp: params.withTimeStamp,
+    withTimestamp: params.withTimestamp,
   },
 });
 

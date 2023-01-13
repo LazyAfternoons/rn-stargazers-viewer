@@ -8,7 +8,7 @@ type ListUserItemProps = {
   /**
    * User information.
    */
-  user: User;
+  info: User | Starred;
 };
 
 /**
@@ -16,12 +16,26 @@ type ListUserItemProps = {
  * The function is wrapped into React.memo in an effort to optmize FlatList performances.
  * Given that we are only appending new elements to the list, we do not need to rerender previous items.
  */
-const ListUserItem = memo(({user}: ListUserItemProps) => {
+const ListUserItem = memo(({info}: ListUserItemProps) => {
+  const isStarred = 'starred_at' in info;
   return (
     <ListItem bottomDivider>
-      <Avatar size="medium" rounded source={{uri: user.avatar_url}} />
+      <Avatar
+        size="medium"
+        rounded
+        source={{uri: isStarred ? info.user.avatar_url : info.avatar_url}}
+      />
       <ListItem.Content>
-        <ListItem.Title>{user.login}</ListItem.Title>
+        <ListItem.Title>
+          {isStarred ? info.user.login : info.login}
+        </ListItem.Title>
+        {isStarred ? (
+          <ListItem.Title>
+            {new Date(info.starred_at).toLocaleString()}
+          </ListItem.Title>
+        ) : (
+          <></>
+        )}
       </ListItem.Content>
     </ListItem>
   );
@@ -32,6 +46,9 @@ const ListUserItem = memo(({user}: ListUserItemProps) => {
  * @param info - user information.
  * @returns a unique identifier.
  */
-export const keyExtractor = (info: User) => info.id.toString();
+export const keyExtractor = (info: User | Starred) => {
+  const isStarred = 'starred_at' in info;
+  return isStarred ? info.user.id.toString() : info.id.toString();
+};
 
 export default ListUserItem;

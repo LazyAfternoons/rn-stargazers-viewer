@@ -1,4 +1,4 @@
-import {Button, Input} from '@rneui/themed';
+import {Button, CheckBox, Input} from '@rneui/themed';
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
@@ -16,6 +16,10 @@ export type RepoFormData = {
    * The name of the repository.
    */
   repo: string;
+  /**
+   * True if timestamp (starred at) has to be included, false otherwise.
+   */
+  withTimestamp: boolean;
 };
 
 /**
@@ -45,8 +49,9 @@ const RepoInputForm = ({handler, containerStyle}: RepoFormProps) => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: {errors, isValid},
-  } = useForm<RepoFormData>();
+  } = useForm<RepoFormData>({defaultValues: {withTimestamp: false}});
   const {t} = useTranslation();
   const submitLabel = t('form.submit');
 
@@ -93,6 +98,17 @@ const RepoInputForm = ({handler, containerStyle}: RepoFormProps) => {
         name="repo"
       />
 
+      <Controller
+        control={control}
+        render={({field: {value}}) => (
+          <CheckBox
+            title={t('form.include_ts') || ''} //always returns something, fallsback to form.include_ts
+            checked={value}
+            onPress={() => setValue('withTimestamp', !value)}
+          />
+        )}
+        name="withTimestamp"
+      />
       <Button
         disabled={!isValid}
         title={submitLabel}

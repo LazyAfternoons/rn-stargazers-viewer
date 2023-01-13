@@ -1,4 +1,12 @@
-import {put, takeLatest, all, call} from '@redux-saga/core/effects';
+import {
+  put,
+  takeLatest,
+  all,
+  call,
+  SelectEffect,
+  PutEffect,
+  CallEffect,
+} from '@redux-saga/core/effects';
 import {select} from 'redux-saga/effects';
 import {getStargazers} from '../api/github';
 import {RootState} from '../types/reducers';
@@ -11,7 +19,15 @@ import {RootState} from '../types/reducers';
  * OVER if the API returns an empty list while querying a page but the first one;
  * FAIL in case of error.
  */
-function* fetchStargazers() {
+function* fetchStargazers(): Generator<
+  | SelectEffect
+  | Promise<(User | Starred)[]>
+  | PutEffect<{
+      type: string;
+    }>,
+  void,
+  StateStargazers & (User[] | Starred[])
+> {
   try {
     const state: StateStargazers = yield select(
       (inState: RootState) => inState.stargazers,
@@ -29,6 +45,7 @@ function* fetchStargazers() {
         owner: state.owner,
         page: state.page,
         perPage: state.perPage,
+        withTimestamp: state.withTimestamp,
       });
       if (res.length > 0) {
         yield put({
@@ -63,7 +80,19 @@ function* fetchStargazers() {
 /**
  * After the action is dispatched to the reducer and the state is inizialied, fetch stargazers.
  */
-function* initStargazers() {
+function* initStargazers(): Generator<
+  CallEffect<
+    Generator<
+      | SelectEffect
+      | Promise<(User | Starred)[]>
+      | PutEffect<{
+          type: string;
+        }>,
+      void,
+      StateStargazers & (User[] | Starred[])
+    >
+  >
+> {
   yield call(fetchStargazers);
 }
 

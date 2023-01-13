@@ -26,7 +26,7 @@ type User = {
  * Response type when listing stargazers with timestamps.
  */
 type Starred = {
-  starred_at?: string;
+  starred_at: string;
   user: User;
 };
 
@@ -38,5 +38,5 @@ type getStargazersPayload = {
   repo: string;
   perPage: number;
   page: number;
-  withTimeStamp?: boolean;
+  withTimestamp?: boolean;
 };

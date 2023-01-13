@@ -52,8 +52,8 @@ const Home = ({stargazers, dispatch}: HomeProps) => {
   /**
    * Function which renders an item of the Stargazers list.
    */
-  const renderItem = ({item}: ListRenderItemInfo<User>) => (
-    <ListUserItem user={item} />
+  const renderItem = ({item}: ListRenderItemInfo<User | Starred>) => (
+    <ListUserItem info={item} />
   );
 
   /**
@@ -86,7 +86,6 @@ const Home = ({stargazers, dispatch}: HomeProps) => {
    */
   useEffect(() => {
     if (stargazers.error != null) {
-      console.log(stargazers.error);
       Alert.alert(
         t('generic.error'),
         t(`api_error.${stargazers.error.code}`) || '',

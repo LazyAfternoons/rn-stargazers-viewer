@@ -15,7 +15,7 @@ const axiosInst = axios.create({
  * @param repo - The repository name.
  * @param perPage - The number of users returned per page.
  * @param page - The number of the requested page, starts from 1.
- * @param withTimeStamp - True if the starred_at timestamp has to be included, false otherwise. If true returns a Starred array.
+ * @param withTimestamp - True if the starred_at timestamp has to be included, false otherwise. If true returns a Starred array.
  * @returns An array of users of Starred if withTimestamp is true, an array of User otherwise.
  */
 export async function getStargazers({
@@ -23,11 +23,11 @@ export async function getStargazers({
   repo,
   perPage,
   page,
-  withTimeStamp,
+  withTimestamp,
 }: getStargazersPayload): Promise<Array<User | Starred>> {
   const res = await axiosInst.get(`/repos/${owner}/${repo}/stargazers`, {
     headers: {
-      Accept: withTimeStamp
+      Accept: withTimestamp
         ? 'application/vnd.github.star+json'
         : 'application/vnd.github+json',
     },
