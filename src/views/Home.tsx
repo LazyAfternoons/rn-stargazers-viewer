@@ -1,4 +1,4 @@
-import React, {Dispatch} from 'react';
+import React from 'react';
 import {KeyboardAvoidingView, Platform, StyleSheet} from 'react-native';
 import RepoInputForm, {RepoFormData} from '../components/RepoInputForm';
 import Header from '../components/Header';
@@ -9,16 +9,8 @@ import {RootState} from '../types/reducers';
 import {connect} from 'react-redux';
 import {resetStargazers} from '../store/actions';
 
-type HomeProps = {
-  /**
-   * Redux state for keeping a state of the list.
-   */
-  stargazers: StateStargazers;
-  /**
-   * Redux dispatcher.
-   */
-  dispatch: Dispatch<InitStargazers | MakeRequestStargazers>;
-} & NativeStackScreenProps<MainStackNavParamList, 'Home'>;
+type HomeProps = StargazersReduxProps &
+  NativeStackScreenProps<MainStackNavParamList, 'Home'>;
 
 /**
  * Home component which includes a brief description, a form to input relevant data to query Github Stargazers API and a list which contains the result of the call.

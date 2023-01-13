@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {Dispatch, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   ActivityIndicator,
@@ -30,17 +30,8 @@ const START_PAGE = 1;
 /**
  * Props for {@link List} screen.
  */
-
-type ListProps = {
-  /**
-   * Redux state for keeping a state of the list.
-   */
-  stargazers: StateStargazers;
-  /**
-   * Redux dispatcher.
-   */
-  dispatch: Dispatch<InitStargazers | MakeRequestStargazers>;
-} & NativeStackScreenProps<MainStackNavParamList, 'List'>;
+type ListProps = StargazersReduxProps &
+  NativeStackScreenProps<MainStackNavParamList, 'List'>;
 
 const List = ({stargazers, dispatch, navigation, route}: ListProps) => {
   const {t} = useTranslation();
@@ -68,6 +59,9 @@ const List = ({stargazers, dispatch, navigation, route}: ListProps) => {
     }
   };
 
+  /**
+   * Dispatches the initialize action to perform the fist request.
+   */
   const init = () => {
     dispatch(
       initStargazers({...route.params, perPage: PER_PAGE, page: START_PAGE}),

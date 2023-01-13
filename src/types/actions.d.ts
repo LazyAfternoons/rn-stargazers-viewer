@@ -103,3 +103,11 @@ type ActionsStargazers =
   | OverStargazers
   | MakeRequestStargazers
   | EmptyStargazers;
+
+/**
+ * Stargazers redux props inject in components when using connect()
+ */
+type StargazersReduxProps = {
+  stargazers: StateStargazers;
+  dispatch: Dispatch<InitStargazers | MakeRequestStargazers>;
+};
