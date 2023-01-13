@@ -1,26 +1,21 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {Dispatch, useEffect} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   ActivityIndicator,
   Alert,
   FlatList,
-  Keyboard,
-  KeyboardAvoidingView,
   ListRenderItemInfo,
-  Platform,
   StyleSheet,
   View,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {initStargazers, makeStargazersRequest} from '../store/actions';
-import RepoInputForm, {RepoFormData} from '../components/RepoInputForm';
-import {RootState} from '../types/reducers';
-import Header from '../components/Header';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import ListFooterView from '../components/ListFooterView';
 import ListEmptyView from '../components/ListEmptyView';
-import ListHeaderText from '../components/ListHeaderText';
+import ListFooterView from '../components/ListFooterView';
 import ListUserItem, {keyExtractor} from '../components/ListUserItem';
-import {useTranslation} from 'react-i18next';
+import {MainStackNavParamList} from '../navigators/MainStackNav';
+import {initStargazers, makeStargazersRequest} from '../store/actions';
+import {RootState} from '../types/reducers';
 
 /**
  * User per page costant for Github Stargazers endpoint. Defaults to 30 per API.
@@ -33,9 +28,10 @@ const PER_PAGE = 30;
 const START_PAGE = 1;
 
 /**
- * Props for {@link Home} component.
+ * Props for {@link List} screen.
  */
-type HomeProps = {
+
+type ListProps = {
   /**
    * Redux state for keeping a state of the list.
    */
@@ -44,12 +40,9 @@ type HomeProps = {
    * Redux dispatcher.
    */
   dispatch: Dispatch<InitStargazers | MakeRequestStargazers>;
-};
+} & NativeStackScreenProps<MainStackNavParamList, 'List'>;
 
-/**
- * Home component which includes a brief description, a form to input relevant data to query Github Stargazers API and a list which contains the result of the call.
- */
-const Home = ({stargazers, dispatch}: HomeProps) => {
+const List = ({stargazers, dispatch, navigation, route}: ListProps) => {
   const {t} = useTranslation();
 
   /**
@@ -58,16 +51,6 @@ const Home = ({stargazers, dispatch}: HomeProps) => {
   const renderItem = ({item}: ListRenderItemInfo<User | Starred>) => (
     <ListUserItem info={item} />
   );
-
-  /**
-   * Form submit callback to be sent to {@link RepoInputForm}.
-   * Takes the data returned from the callback and dispatches the state initialization which fetches the first page.
-   * @param data - the form data returned during the callback.
-   */
-  const submitHandler = (data: RepoFormData) => {
-    Keyboard.dismiss();
-    dispatch(initStargazers({...data, perPage: PER_PAGE, page: START_PAGE}));
-  };
 
   /**
    * Helper function to dispatch a new action which performs a request on the next page of the list.
@@ -84,6 +67,13 @@ const Home = ({stargazers, dispatch}: HomeProps) => {
       dispatch(makeStargazersRequest());
     }
   };
+
+  const init = () => {
+    dispatch(
+      initStargazers({...route.params, perPage: PER_PAGE, page: START_PAGE}),
+    );
+  };
+
   /**
    * Side effect to display error messages, if any.
    */
@@ -92,26 +82,28 @@ const Home = ({stargazers, dispatch}: HomeProps) => {
       Alert.alert(
         t('generic.error'),
         t(`api_error.${stargazers.error.code}`) || '',
+        stargazers.list
+          ? []
+          : [{text: 'OK', onPress: () => navigation.goBack()}], //goBack only if the list doesn't have any item
       );
     }
-  }, [stargazers.error, t]);
+    // Trigger the event only when error changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stargazers.error]);
+
+  useEffect(() => {
+    init();
+    // Trigger the event only on mounting
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <SafeAreaView
-      edges={['top', 'right', 'left', 'bottom']}
-      style={viewStyle.safeArea}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={viewStyle.paddedHeader}>
-        <Header />
-        <RepoInputForm handler={submitHandler} />
-      </KeyboardAvoidingView>
+    <View style={viewStyle.outer}>
       {stargazers.list !== null && !stargazers.loading ? (
         <FlatList
           keyExtractor={keyExtractor}
           data={stargazers.list}
           renderItem={renderItem}
-          ListHeaderComponent={ListHeaderText}
           ListFooterComponent={
             <ListFooterView
               isOver={stargazers.isOver}
@@ -121,20 +113,14 @@ const Home = ({stargazers, dispatch}: HomeProps) => {
           ListEmptyComponent={ListEmptyView}
           onEndReachedThreshold={0.5}
           onEndReached={makeRequest}
-          stickyHeaderIndices={[0]}
           initialNumToRender={PER_PAGE}
         />
       ) : (
-        <></>
-      )}
-      {stargazers.loading ? (
         <View style={viewStyle.loading}>
           <ActivityIndicator size={'large'} />
         </View>
-      ) : (
-        <></>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -144,18 +130,14 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(List);
 
 const viewStyle = StyleSheet.create({
   loading: {
     flex: 1,
     justifyContent: 'center',
   },
-  safeArea: {
+  outer: {
     flex: 1,
-    justifyContent: 'space-between',
-  },
-  paddedHeader: {
-    padding: 25,
   },
 });

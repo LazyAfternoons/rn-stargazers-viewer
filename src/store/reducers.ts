@@ -10,7 +10,7 @@ const initialState: StateStargazers = {
   nextPageLoading: false,
   error: null,
   isOver: false,
-  page: 1,
+  page: 0,
   perPage: 30,
   withTimestamp: false,
   list: null,
@@ -88,6 +88,11 @@ const StargazersReducer = (
         list: [],
         loading: false,
         nextPageLoading: false,
+      };
+
+    case 'RESET':
+      return {
+        ...initialState,
       };
 
     default:

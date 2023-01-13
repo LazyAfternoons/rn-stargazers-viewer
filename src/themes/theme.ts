@@ -17,6 +17,7 @@ export const customTheme = createTheme({
         marginBottom: 15,
       },
       containerStyle: {
+        backgroundColor: 'transparent',
         margin: 0,
         marginLeft: 0,
         marginRight: 0,
@@ -45,14 +46,6 @@ export const useTextStyles = makeStyles(() => ({
   caption: {
     fontSize: 16,
     marginBottom: 15,
-  },
-  subHeader: {
-    borderRadius: 2,
-    backgroundColor: 'grey',
-    color: 'white',
-    textAlign: 'center',
-    paddingVertical: 5,
-    marginBottom: 10,
   },
   centered: {
     textAlign: 'center',

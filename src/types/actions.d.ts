@@ -24,7 +24,8 @@ type StargazersAction =
   | 'SUCCESS'
   | 'FAIL'
   | 'OVER'
-  | 'EMPTY';
+  | 'EMPTY'
+  | 'RESET';
 
 /**
  * Init action type.
@@ -43,6 +44,14 @@ type InitStargazersParams = getStargazersPayload;
  * Input type parameters for the MAKE_REQUEST action.
  */
 type MakeRequestStargazers = {
+  type: StargazersAction;
+  payload?: {};
+};
+
+/**
+ * Input type parameters for the RESET action.
+ */
+type ResetStargazers = {
   type: StargazersAction;
   payload?: {};
 };

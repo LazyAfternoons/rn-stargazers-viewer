@@ -20,6 +20,13 @@ export const initStargazers = (
 });
 
 /**
+ * Carries the RESET action payload to the Redux store for resetting the state to the initial one.
+ */
+export const resetStargazers = (): ResetStargazers => ({
+  type: 'RESET',
+});
+
+/**
  * Carries the MAKE_REQUEST action payload to the Redux store for performing a new request.
  */
 export const makeStargazersRequest = (): MakeRequestStargazers => ({
