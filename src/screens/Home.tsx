@@ -4,7 +4,9 @@ import {
   Alert,
   FlatList,
   Keyboard,
+  KeyboardAvoidingView,
   ListRenderItemInfo,
+  Platform,
   StyleSheet,
   View,
 } from 'react-native';
@@ -98,10 +100,12 @@ const Home = ({stargazers, dispatch}: HomeProps) => {
     <SafeAreaView
       edges={['top', 'right', 'left', 'bottom']}
       style={viewStyle.safeArea}>
-      <View style={viewStyle.paddedHeader}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={viewStyle.paddedHeader}>
         <Header />
         <RepoInputForm handler={submitHandler} />
-      </View>
+      </KeyboardAvoidingView>
       {stargazers.list !== null && !stargazers.loading ? (
         <FlatList
           keyExtractor={keyExtractor}
