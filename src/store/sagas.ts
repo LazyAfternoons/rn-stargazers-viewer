@@ -18,6 +18,7 @@ import {RootState} from '../types/reducers';
  * EMPTY if the API returns an empty list while querying for the first page;
  * OVER if the API returns an empty list while querying a page but the first one;
  * FAIL in case of error.
+ * RESET to reset to the initial state.
  */
 function* fetchStargazers(): Generator<
   | SelectEffect

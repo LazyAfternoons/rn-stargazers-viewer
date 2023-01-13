@@ -31,7 +31,7 @@ type StargazersAction =
  * Init action type.
  */
 type InitStargazers = {
-  type: StargazersAction;
+  type: 'INIT';
   payload: initParamsType;
 };
 
@@ -44,7 +44,7 @@ type InitStargazersParams = getStargazersPayload;
  * Input type parameters for the MAKE_REQUEST action.
  */
 type MakeRequestStargazers = {
-  type: StargazersAction;
+  type: 'MAKE_REQUEST';
   payload?: {};
 };
 
@@ -52,7 +52,7 @@ type MakeRequestStargazers = {
  * Input type parameters for the RESET action.
  */
 type ResetStargazers = {
-  type: StargazersAction;
+  type: 'RESET';
   payload?: {};
 };
 
@@ -60,10 +60,10 @@ type ResetStargazers = {
  * Input type parameters for the SUCCESS action.
  */
 type SuccessStargazers = {
-  type: StargazersAction;
+  type: 'SUCCESS';
   payload: {
-    list: Pick<StateStargazers, 'list'>;
-    page: Pick<StateStargazers, 'page'>;
+    list: Exclude<StateStargazers['list'], null>;
+    page: StateStargazers['page'];
   };
 };
 
@@ -73,7 +73,7 @@ type SuccessStargazers = {
 type FailureStargazers = {
   type: 'FAIL';
   payload: {
-    error: Pick<StateStargazers, 'error'>;
+    error: Exclude<StateStargazers['error'], null>;
   };
 };
 
@@ -81,7 +81,7 @@ type FailureStargazers = {
  * Input type parameters for the OVER action.
  */
 type OverStargazers = {
-  type: StargazersAction;
+  type: 'OVER';
   payload?: {};
 };
 
@@ -89,7 +89,7 @@ type OverStargazers = {
  * Input type parameters for the SUCCESS action.
  */
 type EmptyStargazers = {
-  type: StargazersAction;
+  type: 'EMPTY';
   payload?: {};
 };
 
@@ -102,7 +102,8 @@ type ActionsStargazers =
   | FailureStargazers
   | OverStargazers
   | MakeRequestStargazers
-  | EmptyStargazers;
+  | EmptyStargazers
+  | ResetStargazers;
 
 /**
  * Stargazers redux props inject in components when using connect()
