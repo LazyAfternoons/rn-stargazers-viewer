@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Alert,
   FlatList,
+  Keyboard,
   ListRenderItemInfo,
   StyleSheet,
   View,
@@ -62,6 +63,7 @@ const Home = ({stargazers, dispatch}: HomeProps) => {
    * @param data - the form data returned during the callback.
    */
   const submitHandler = (data: RepoFormData) => {
+    Keyboard.dismiss();
     dispatch(initStargazers({...data, perPage: PER_PAGE, page: START_PAGE}));
   };
 
@@ -80,7 +82,6 @@ const Home = ({stargazers, dispatch}: HomeProps) => {
       dispatch(makeStargazersRequest());
     }
   };
-
   /**
    * Side effect to display error messages, if any.
    */
