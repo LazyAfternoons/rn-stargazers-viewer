@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getStargazersPayload, Starred, User} from '../types/github';
 
 /** Creates an axios instance with github's API base URL */
 const axiosInst = axios.create({

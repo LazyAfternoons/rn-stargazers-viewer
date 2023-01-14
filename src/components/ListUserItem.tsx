@@ -1,5 +1,6 @@
 import {Avatar, ListItem} from '@rneui/themed';
 import React, {memo} from 'react';
+import {Starred, User} from '../types/github';
 
 /**
  * Props for the `ListUserItem` component.

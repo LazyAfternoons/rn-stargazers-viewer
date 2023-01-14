@@ -8,6 +8,7 @@ import {MainStackNavParamList} from '../navigators/MainStackNav';
 import {RootState} from '../types/reducers';
 import {connect} from 'react-redux';
 import {resetStargazers} from '../store/actions';
+import {StargazersReduxProps} from '../types/actions';
 
 type HomeProps = StargazersReduxProps &
   NativeStackScreenProps<MainStackNavParamList, 'Home'>;

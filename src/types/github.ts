@@ -1,7 +1,7 @@
 /**
  * Basic user response when listing stargazers without timestamps.
  */
-type User = {
+export type User = {
   avatar_url: string;
   events_url: string;
   followers_url: string;
@@ -25,7 +25,7 @@ type User = {
 /**
  * Response type when listing stargazers with timestamps.
  */
-type Starred = {
+export type Starred = {
   starred_at: string;
   user: User;
 };
@@ -33,7 +33,7 @@ type Starred = {
 /**
  * Input parameters for getStargazers function with or without timestamps.
  */
-type getStargazersPayload = {
+export type getStargazersPayload = {
   owner: string;
   repo: string;
   perPage: number;

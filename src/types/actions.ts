@@ -1,8 +1,11 @@
+import {Dispatch} from 'react';
+import {getStargazersPayload} from './github';
+
 /**
  * Type which shapes the stargazers state.
  * Includes data regarding the repository, the page to be fetched and other flags regarding its state.
  */
-type StateStargazers = {
+export type StateStargazers = {
   owner: string | null;
   repo: string | null;
   loading: boolean;
@@ -18,49 +21,50 @@ type StateStargazers = {
 /**
  * Actions possibilities.
  */
-type StargazersAction =
-  | 'INIT'
-  | 'MAKE_REQUEST'
-  | 'SUCCESS'
-  | 'FAIL'
-  | 'OVER'
-  | 'EMPTY'
-  | 'RESET';
+export enum StargazersAction {
+  INIT = 'INIT',
+  MAKE_REQUEST = 'MAKE_REQUEST',
+  SUCCESS = 'SUCCESS',
+  FAIL = 'FAIL',
+  OVER = 'OVER',
+  RESET = 'RESET',
+  EMPTY = 'EMPTY',
+}
 
 /**
  * Init action type.
  */
-type InitStargazers = {
-  type: 'INIT';
-  payload: initParamsType;
+export type InitStargazers = {
+  type: StargazersAction.INIT;
+  payload: Required<getStargazersPayload>;
 };
 
 /**
  * Input type parameters for the INIT action.
  */
-type InitStargazersParams = getStargazersPayload;
+export type InitStargazersParams = Required<getStargazersPayload>;
 
 /**
  * Input type parameters for the MAKE_REQUEST action.
  */
-type MakeRequestStargazers = {
-  type: 'MAKE_REQUEST';
+export type MakeRequestStargazers = {
+  type: StargazersAction.MAKE_REQUEST;
   payload?: {};
 };
 
 /**
  * Input type parameters for the RESET action.
  */
-type ResetStargazers = {
-  type: 'RESET';
+export type ResetStargazers = {
+  type: StargazersAction.RESET;
   payload?: {};
 };
 
 /**
  * Input type parameters for the SUCCESS action.
  */
-type SuccessStargazers = {
-  type: 'SUCCESS';
+export type SuccessStargazers = {
+  type: StargazersAction.SUCCESS;
   payload: {
     list: Exclude<StateStargazers['list'], null>;
     page: StateStargazers['page'];
@@ -70,8 +74,8 @@ type SuccessStargazers = {
 /**
  * Input type parameters for the FAILURE action.
  */
-type FailureStargazers = {
-  type: 'FAIL';
+export type FailureStargazers = {
+  type: StargazersAction.FAIL;
   payload: {
     error: Exclude<StateStargazers['error'], null>;
   };
@@ -80,23 +84,23 @@ type FailureStargazers = {
 /**
  * Input type parameters for the OVER action.
  */
-type OverStargazers = {
-  type: 'OVER';
+export type OverStargazers = {
+  type: StargazersAction.OVER;
   payload?: {};
 };
 
 /**
- * Input type parameters for the SUCCESS action.
+ * Input type parameters for the EMPTY action.
  */
-type EmptyStargazers = {
-  type: 'EMPTY';
+export type EmptyStargazers = {
+  type: StargazersAction.EMPTY;
   payload?: {};
 };
 
 /**
  * Every possible action.
  */
-type ActionsStargazers =
+export type ActionsStargazers =
   | InitStargazers
   | SuccessStargazers
   | FailureStargazers
@@ -108,7 +112,7 @@ type ActionsStargazers =
 /**
  * Stargazers redux props inject in components when using connect()
  */
-type StargazersReduxProps = {
+export type StargazersReduxProps = {
   stargazers: StateStargazers;
-  dispatch: Dispatch<InitStargazers | MakeRequestStargazers>;
+  dispatch: Dispatch<InitStargazers | MakeRequestStargazers | ResetStargazers>;
 };

@@ -15,6 +15,8 @@ import ListFooterView from '../components/ListFooterView';
 import ListUserItem, {keyExtractor} from '../components/ListUserItem';
 import {MainStackNavParamList} from '../navigators/MainStackNav';
 import {initStargazers, makeStargazersRequest} from '../store/actions';
+import {StargazersReduxProps} from '../types/actions';
+import {Starred, User} from '../types/github';
 import {RootState} from '../types/reducers';
 
 /**

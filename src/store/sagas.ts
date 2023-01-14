@@ -9,6 +9,8 @@ import {
 } from '@redux-saga/core/effects';
 import {select} from 'redux-saga/effects';
 import {getStargazers} from '../api/github';
+import {StargazersAction, StateStargazers} from '../types/actions';
+import {Starred, User} from '../types/github';
 import {RootState} from '../types/reducers';
 
 /**
@@ -50,7 +52,7 @@ function* fetchStargazers(): Generator<
       });
       if (res.length > 0) {
         yield put({
-          type: 'SUCCESS',
+          type: StargazersAction.SUCCESS,
           payload: {
             list: res,
             page: state.page + 1,
@@ -58,15 +60,15 @@ function* fetchStargazers(): Generator<
         });
       } else if (state.page > 1) {
         //empty while querying the first page
-        yield put({type: 'OVER'});
+        yield put({type: StargazersAction.OVER});
       } else {
         //empty while query any page but the first one
-        yield put({type: 'EMPTY'});
+        yield put({type: StargazersAction.EMPTY});
       }
     }
   } catch (err: any) {
     yield put({
-      type: 'FAIL',
+      type: StargazersAction.FAIL,
       payload: {
         error: {
           //If response exsits then the server answered, axios error otherwise (might be network related)
@@ -102,7 +104,7 @@ function* initStargazers(): Generator<
  * Always gets the response of the latest request which was fired.
  */
 function* fetchStargazersSaga() {
-  yield takeLatest('MAKE_REQUEST', fetchStargazers);
+  yield takeLatest(StargazersAction.MAKE_REQUEST, fetchStargazers);
 }
 
 /**
@@ -110,7 +112,7 @@ function* fetchStargazersSaga() {
  * Always gets the response of the latest request which was fired.
  */
 function* initStargazersSaga() {
-  yield takeLatest('INIT', initStargazers);
+  yield takeLatest(StargazersAction.INIT, initStargazers);
 }
 
 /**

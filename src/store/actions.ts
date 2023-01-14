@@ -1,3 +1,11 @@
+import {
+  InitStargazers,
+  InitStargazersParams,
+  MakeRequestStargazers,
+  ResetStargazers,
+  StargazersAction,
+} from '../types/actions';
+
 /**
  * Carries the INIT action payload to the Redux store with the information regarding the repository.
  * @param owner - The owner of the repository.
@@ -9,7 +17,7 @@
 export const initStargazers = (
   params: InitStargazersParams,
 ): InitStargazers => ({
-  type: 'INIT',
+  type: StargazersAction.INIT,
   payload: {
     owner: params.owner,
     repo: params.repo,
@@ -23,12 +31,12 @@ export const initStargazers = (
  * Carries the RESET action payload to the Redux store for resetting the state to the initial one.
  */
 export const resetStargazers = (): ResetStargazers => ({
-  type: 'RESET',
+  type: StargazersAction.RESET,
 });
 
 /**
  * Carries the MAKE_REQUEST action payload to the Redux store for performing a new request.
  */
 export const makeStargazersRequest = (): MakeRequestStargazers => ({
-  type: 'MAKE_REQUEST',
+  type: StargazersAction.MAKE_REQUEST,
 });

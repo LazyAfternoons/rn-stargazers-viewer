@@ -1,4 +1,4 @@
-import {resources} from '@localization/i18n';
+import {resources} from '../localization/i18n';
 
 /**
  * Type for translation key validation.

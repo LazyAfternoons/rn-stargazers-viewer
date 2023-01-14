@@ -1,4 +1,9 @@
 import {combineReducers} from 'redux';
+import {
+  ActionsStargazers,
+  StargazersAction,
+  StateStargazers,
+} from '../types/actions';
 
 /**
  * The initial state of {@link StargazersReducer}
@@ -35,7 +40,7 @@ const StargazersReducer = (
   action: ActionsStargazers,
 ): StateStargazers => {
   switch (action.type) {
-    case 'INIT':
+    case StargazersAction.INIT:
       return {
         ...state,
         owner: action.payload.owner,
@@ -50,10 +55,10 @@ const StargazersReducer = (
         loading: true,
       };
 
-    case 'MAKE_REQUEST':
+    case StargazersAction.MAKE_REQUEST:
       return {...state, nextPageLoading: true};
 
-    case 'SUCCESS':
+    case StargazersAction.SUCCESS:
       return {
         ...state,
         //if the list state is not null then append new elements to the current state, otherwise take only the action payload list.
@@ -66,7 +71,7 @@ const StargazersReducer = (
         nextPageLoading: false,
       };
 
-    case 'FAIL':
+    case StargazersAction.FAIL:
       return {
         ...state,
         error: action.payload.error,
@@ -74,7 +79,7 @@ const StargazersReducer = (
         nextPageLoading: false,
       };
 
-    case 'OVER':
+    case StargazersAction.OVER:
       return {
         ...state,
         isOver: true,
@@ -82,7 +87,7 @@ const StargazersReducer = (
         nextPageLoading: false,
       };
 
-    case 'EMPTY':
+    case StargazersAction.EMPTY:
       return {
         ...state,
         list: [],
@@ -90,7 +95,7 @@ const StargazersReducer = (
         nextPageLoading: false,
       };
 
-    case 'RESET':
+    case StargazersAction.RESET:
       return {
         ...initialState,
       };
