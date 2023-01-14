@@ -1,0 +1,7 @@
+# .eslintignore
+node_modules
+vendor
+.bundle
+android
+ios
+docs
