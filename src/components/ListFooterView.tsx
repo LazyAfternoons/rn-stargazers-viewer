@@ -25,8 +25,18 @@ const ListFooterView = ({isOver, loading}: ListFooterViewProps) => {
   const {t} = useTranslation();
   return (
     <View>
-      {loading && <ActivityIndicator animating={loading} size={'large'} />}
-      {isOver && <Text style={textStyles.centered}>{t('list.over')}</Text>}
+      {loading && (
+        <ActivityIndicator
+          testID="loading"
+          animating={loading}
+          size={'large'}
+        />
+      )}
+      {isOver && (
+        <Text testID="overView" style={textStyles.centered}>
+          {t('list.over')}
+        </Text>
+      )}
     </View>
   );
 };

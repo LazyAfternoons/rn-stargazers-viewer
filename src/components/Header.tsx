@@ -21,7 +21,7 @@ const Header = ({containerStyle}: HeaderProps) => {
   const styles = useTextStyles();
   const {t} = useTranslation();
   return (
-    <View style={containerStyle}>
+    <View style={containerStyle} testID="view">
       <Text style={styles.title}>{t('home.title')}</Text>
       <Text style={styles.caption}>{t('home.description')}</Text>
     </View>

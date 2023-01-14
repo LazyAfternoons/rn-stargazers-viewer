@@ -77,10 +77,11 @@ const RepoInputForm = ({
   const submitLabel = t('form.submit');
 
   return (
-    <View style={containerStyle}>
+    <View style={containerStyle} testID="outerView">
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={fieldsContainerStyle}>
+        style={fieldsContainerStyle}
+        testID="fieldsView">
         <Controller
           control={control}
           rules={{
@@ -88,6 +89,7 @@ const RepoInputForm = ({
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
+              testID="ownerInput"
               autoCapitalize="none"
               label={'Owner'}
               onBlur={onBlur}
@@ -104,11 +106,12 @@ const RepoInputForm = ({
         <Controller
           control={control}
           rules={{
-            maxLength: {value: 250, message: t('form.repo_maxlength')},
+            maxLength: {value: 100, message: t('form.repo_maxlength')},
             required: {value: true, message: t('form.required')},
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
+              testID="repoInput"
               autoCapitalize="none"
               label={'Name'}
               onBlur={onBlur}
@@ -134,8 +137,9 @@ const RepoInputForm = ({
           name="withTimestamp"
         />
       </KeyboardAvoidingView>
-      <View style={submitContainerStyle}>
+      <View style={submitContainerStyle} testID={'submitView'}>
         <Button
+          testID="submitButton"
           disabled={!isValid}
           title={submitLabel}
           onPress={handleSubmit(handler)}

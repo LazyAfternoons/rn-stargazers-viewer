@@ -1,5 +1,6 @@
 import {Avatar, ListItem} from '@rneui/themed';
 import React, {memo} from 'react';
+import {View} from 'react-native';
 import {Starred, User} from '../types/github';
 
 /**
@@ -21,17 +22,19 @@ const ListUserItem = memo(({info}: ListUserItemProps) => {
   const isStarred = 'starred_at' in info;
   return (
     <ListItem bottomDivider>
-      <Avatar
-        size="medium"
-        rounded
-        source={{uri: isStarred ? info.user.avatar_url : info.avatar_url}}
-      />
+      <View testID="avatarView">
+        <Avatar
+          size="medium"
+          rounded
+          source={{uri: isStarred ? info.user.avatar_url : info.avatar_url}}
+        />
+      </View>
       <ListItem.Content>
         <ListItem.Title>
           {isStarred ? info.user.login : info.login}
         </ListItem.Title>
         {isStarred ? (
-          <ListItem.Title>
+          <ListItem.Title testID="timestamp">
             {new Date(info.starred_at).toLocaleString()}
           </ListItem.Title>
         ) : (
