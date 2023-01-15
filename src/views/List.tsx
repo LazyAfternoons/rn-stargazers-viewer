@@ -9,6 +9,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {connect} from 'react-redux';
 import ListEmptyView from '../components/ListEmptyView';
 import ListFooterView from '../components/ListFooterView';
@@ -94,7 +95,7 @@ const List = ({stargazers, dispatch, navigation, route}: ListProps) => {
   }, []);
 
   return (
-    <View style={viewStyle.outer}>
+    <SafeAreaView edges={['right', 'left', 'bottom']} style={viewStyle.outer}>
       {stargazers.list !== null && !stargazers.loading ? (
         <FlatList
           contentContainerStyle={viewStyle.flContentContainer}
@@ -117,7 +118,7 @@ const List = ({stargazers, dispatch, navigation, route}: ListProps) => {
           <ActivityIndicator size={'large'} />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
