@@ -1,5 +1,8 @@
 import {createTheme, makeStyles} from '@rneui/themed';
 
+/**
+ * Custom theme applied to rneui components for components wrapped in ThemeProvider.
+ */
 export const customTheme = createTheme({
   components: {
     Input: {
@@ -37,6 +40,9 @@ export const customTheme = createTheme({
   },
 });
 
+/**
+ * Custom hook for text styles reused in the app.
+ */
 export const useTextStyles = makeStyles(() => ({
   title: {
     fontSize: 26,
@@ -52,6 +58,9 @@ export const useTextStyles = makeStyles(() => ({
   },
 }));
 
+/**
+ * Custom hook for view styles reused in the app.
+ */
 export const useViewStyles = makeStyles(() => ({
   growCentered: {
     flexGrow: 1,
