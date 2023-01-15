@@ -22,9 +22,9 @@ import {RootState} from '../types/reducers';
  * FAIL in case of error.
  * RESET to reset to the initial state.
  */
-function* fetchStargazers(): Generator<
+export function* fetchStargazers(): Generator<
   | SelectEffect
-  | Promise<(User | Starred)[]>
+  | CallEffect<(User | Starred)[]>
   | PutEffect<{
       type: string;
     }>,
@@ -43,7 +43,7 @@ function* fetchStargazers(): Generator<
       !state.isOver &&
       !state.error
     ) {
-      const res: User[] | Starred[] = yield getStargazers({
+      const res = yield call(getStargazers, {
         repo: state.repo,
         owner: state.owner,
         page: state.page,
@@ -83,19 +83,7 @@ function* fetchStargazers(): Generator<
 /**
  * After the action is dispatched to the reducer and the state is inizialied, fetch stargazers.
  */
-function* initStargazers(): Generator<
-  CallEffect<
-    Generator<
-      | SelectEffect
-      | Promise<(User | Starred)[]>
-      | PutEffect<{
-          type: string;
-        }>,
-      void,
-      StateStargazers & (User[] | Starred[])
-    >
-  >
-> {
+export function* initStargazers() {
   yield call(fetchStargazers);
 }
 

@@ -16,6 +16,28 @@ export const initMock: InitStargazers['payload'] = {
   withTimestamp: false,
 };
 
+export const initStateMock: StateStargazers = {
+  ...initMock,
+  list: null,
+  isOver: false,
+  error: null,
+  nextPageLoading: false,
+  loading: true,
+};
+
+export const beforeOverStateMock = {
+  owner: 'test',
+  repo: 'test',
+  page: 2,
+  perPage: 30,
+  withTimestamp: false,
+  list: null,
+  isOver: false,
+  error: null,
+  nextPageLoading: false,
+  loading: true,
+};
+
 export const successMock: SuccessStargazers = {
   type: StargazersAction.SUCCESS,
   payload: {
