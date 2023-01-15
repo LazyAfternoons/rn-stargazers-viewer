@@ -63,5 +63,5 @@ buck-out/
 /ios/Pods/
 /vendor/bundle/
 
-# Docs 
-docs/
+# Doc 
+doc/typedoc
