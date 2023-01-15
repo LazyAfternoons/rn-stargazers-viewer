@@ -8,7 +8,7 @@ import {
 /**
  * The initial state of {@link StargazersReducer}
  */
-const initialState: StateStargazers = {
+export const initialState: StateStargazers = {
   owner: null,
   repo: null,
   loading: false,
@@ -35,7 +35,7 @@ const initialState: StateStargazers = {
  * @param action - The current action to be dispatched.
  * @returns The new state or the current one if the action is not recognized.
  */
-const StargazersReducer = (
+export const StargazersReducer = (
   state: StateStargazers = initialState,
   action: ActionsStargazers,
 ): StateStargazers => {
