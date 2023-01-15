@@ -86,7 +86,6 @@ const RepoInputForm = ({
           control={control}
           rules={{
             required: {value: true, message: t('form.required')},
-            maxLength: {value: 38, message: t('owner_maxlength')},
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
@@ -107,7 +106,6 @@ const RepoInputForm = ({
         <Controller
           control={control}
           rules={{
-            maxLength: {value: 100, message: t('form.repo_maxlength')},
             required: {value: true, message: t('form.required')},
           }}
           render={({field: {onChange, onBlur, value}}) => (
