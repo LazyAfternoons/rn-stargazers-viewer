@@ -1,7 +1,7 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Text, View} from 'react-native';
-import {useTextStyles} from '../themes/theme';
+import {useTextStyles, useViewStyles} from '../themes/theme';
 
 /**
  * A view for empty stargazers list.
@@ -9,8 +9,9 @@ import {useTextStyles} from '../themes/theme';
 const ListEmptyView = () => {
   const {t} = useTranslation();
   const textStyles = useTextStyles();
+  const viewStyles = useViewStyles();
   return (
-    <View>
+    <View style={viewStyles.growCentered}>
       <Text style={textStyles.centered}>{t('list.empty')}</Text>
     </View>
   );

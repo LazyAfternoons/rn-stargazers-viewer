@@ -97,6 +97,7 @@ const List = ({stargazers, dispatch, navigation, route}: ListProps) => {
     <View style={viewStyle.outer}>
       {stargazers.list !== null && !stargazers.loading ? (
         <FlatList
+          contentContainerStyle={viewStyle.flContentContainer}
           keyExtractor={keyExtractor}
           data={stargazers.list}
           renderItem={renderItem}
@@ -135,5 +136,8 @@ const viewStyle = StyleSheet.create({
   },
   outer: {
     flex: 1,
+  },
+  flContentContainer: {
+    flexGrow: 1,
   },
 });

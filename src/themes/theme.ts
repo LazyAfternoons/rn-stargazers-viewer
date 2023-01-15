@@ -51,3 +51,10 @@ export const useTextStyles = makeStyles(() => ({
     textAlign: 'center',
   },
 }));
+
+export const useViewStyles = makeStyles(() => ({
+  growCentered: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+}));
