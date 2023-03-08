@@ -83,6 +83,7 @@ The following instructions have been tested on macOS Ventura with `bash` shell. 
 * Install [yarn](https://pm2.keymetrics.io) via npm by typing `npm install --global yarn`;
 * Clone the repository and `cd` into the root directory;
 * Install the appropriate ruby version by tpying `rbenv install`;
+* Install the appropriate node version by tpying `nodenv install`;
 * Install dependencies via `yarn install`; 
 * **Only on macOS**, install CocoaPods dependencies with [bundler](https://bundler.io) by running `cd ios && bundler installer && bundler exec pod install && cd ..`;
 * Start the application on an emulator by running `yarn ios` or `yarn android`.
