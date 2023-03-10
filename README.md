@@ -85,6 +85,6 @@ The following instructions have been tested on macOS Ventura with `bash` shell. 
 * Install the appropriate ruby version by tpying `rbenv install`;
 * Install the appropriate node version by tpying `nodenv install`;
 * Install dependencies via `yarn install`; 
-* **Only on macOS**, install CocoaPods dependencies with [bundler](https://bundler.io) by running `cd ios && bundler installer && bundler exec pod install && cd ..`;
+* **Only on macOS**, install CocoaPods dependencies with [bundler](https://bundler.io) by running `cd ios && bundler install && bundler exec pod install && cd ..`;
 * Start the application on an emulator by running `yarn ios` or `yarn android`.
 
